@@ -1,0 +1,81 @@
+.structure-view {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+}
+
+.structure-content {
+  display: flex;
+  width: 100%;
+  gap: 0;
+}
+
+.frame-grid-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-color: #1a1a1a;
+}
+
+.grid-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #0a0a0a;
+  border-bottom: 1px solid #333;
+  flex-wrap: wrap;
+}
+
+.grouping-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.grouping-controls label {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.grouping-controls select {
+  padding: 0.4em 0.8em;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.grouping-controls select:hover {
+  border-color: #646cff;
+}
+
+.selection-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background-color: #2a3a5a;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+.clear-selection-btn {
+  padding: 0.3em 0.6em;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.clear-selection-btn:hover {
+  border-color: #ff6b6b;
+  background-color: #2a1a1a;
+}

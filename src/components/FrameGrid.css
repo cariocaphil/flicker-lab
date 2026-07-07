@@ -1,0 +1,43 @@
+.frame-grid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #1a1a1a;
+  border-right: 1px solid #333;
+}
+
+.frames-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
+  align-content: flex-start;
+}
+
+.frame-wrapper {
+  position: relative;
+  display: flex;
+}
+
+.frame-separator {
+  width: 2px;
+  height: 80px;
+  background-color: #444;
+  margin: 0 6px;
+  opacity: 0.5;
+  margin-right: -6px;
+  z-index: 10;
+}
+
+.frame-wrapper.separator-after {
+  margin-right: 4px;
+}
+
+@media (max-width: 1024px) {
+  .frames-container {
+    padding: 0.75rem;
+  }
+}

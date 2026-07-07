@@ -1,0 +1,105 @@
+.frame-cell {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  background-color: #2a2a2a;
+  border: 2px solid #444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.frame-cell:hover {
+  border-color: #666;
+  background-color: #333;
+}
+
+.frame-cell.selected {
+  border-color: #646cff;
+  background-color: #2a3a5a;
+}
+
+.frame-cell.current {
+  border-color: #ff6b6b;
+  box-shadow: inset 0 0 0 1px #ff6b6b;
+}
+
+.frame-preview {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.frame-content.single-cell {
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+}
+
+.frame-content.single-cell.white {
+  background-color: #fff;
+}
+
+.frame-content.single-cell.black {
+  background-color: #000;
+}
+
+.frame-grid-preview {
+  display: grid;
+  gap: 1px;
+  padding: 2px;
+  width: 100%;
+  height: 100%;
+  background-color: #1a1a1a;
+  border-radius: 2px;
+}
+
+.frame-row {
+  display: flex;
+  gap: 1px;
+  width: 100%;
+}
+
+.frame-grid-cell {
+  flex: 1;
+  aspect-ratio: 1;
+  border-radius: 1px;
+}
+
+.frame-grid-cell.white {
+  background-color: #ddd;
+}
+
+.frame-grid-cell.black {
+  background-color: #222;
+}
+
+.frame-number {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+  font-size: 0.65rem;
+  color: #999;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1px 3px;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .frame-cell {
+    width: 60px;
+    height: 60px;
+  }
+
+  .frame-number {
+    font-size: 0.55rem;
+  }
+}
