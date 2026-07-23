@@ -9,10 +9,12 @@ A React + TypeScript web application for composing flicker films inspired by str
 ## Features
 
 ### 🎨 Dual View System
+
 - **Structure View** (default): Compose your sequence frame-by-frame
 - **Playback View**: Preview the animation with adjustable FPS and controls
 
 ### 🧱 Frame Grid & Composition
+
 - Timeline of 128 frames, each editable as black (1) or white (0)
 - Click to toggle frame states
 - Drag to paint multiple frames
@@ -20,10 +22,12 @@ A React + TypeScript web application for composing flicker films inspired by str
 - Visual frame numbering and separators
 
 ### 🎼 Frame Grouping
+
 - Visual separators every 4, 8, 16, or 32 frames
 - Helps organize large sequences
 
 ### 🔲 Sub-frame Editing (Key Feature)
+
 - Expand any frame to edit internal structure
 - 4 resolution levels:
   - **1x1**: Single cell (default)
@@ -33,13 +37,16 @@ A React + TypeScript web application for composing flicker films inspired by str
 - Paint individual sub-cells for micro-patterns
 
 ### 🎼 Batch Editing Tools
+
 When frames are selected:
+
 - **Duplicate**: Copy selected range
 - **Reverse**: Reverse frame order
 - **Randomize**: Fill with random black/white (adjustable density %)
 - **Clear**: Reset selected frames to white
 
 ### 🎬 Playback Controls
+
 - Play/Pause/Loop
 - FPS selector: 12 fps (default), 24 fps, 48 fps
 - Real-time frame info display
@@ -47,11 +54,13 @@ When frames are selected:
 - Current frame sync with Structure View
 
 ### 💾 Project Management
+
 - **Auto-save**: Changes persist to localStorage
 - **Manual Save**: Export project as `.flickerlab` JSON file
 - **Persistent State**: Resume work across sessions
 
 ### 📊 Export
+
 - **PDF Export**: Download the sequence as a PDF score
   - Full sequence, or selected range when frames are selected
   - Frame numbers and group separators
@@ -61,19 +70,20 @@ When frames are selected:
 ## Data Model
 
 ```typescript
-type Cell = 0 | 1  // white | black
+type Cell = 0 | 1; // white | black
 
 type Frame = {
-  resolution: 1 | 2 | 4 | 8
-  cells: Cell[][]
-}
+  resolution: 1 | 2 | 4 | 8;
+  cells: Cell[][];
+};
 
-type Sequence = Frame[]
+type Sequence = Frame[];
 ```
 
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js 18+
 - npm or yarn
 
@@ -150,16 +160,19 @@ npm run preview
 ### Saving & Loading
 
 **Auto-save**:
+
 - Changes automatically saved to browser localStorage
 - App resume where you left off
 
 **Manual Save**:
+
 - Click "Save Project" button
 - Enter project name
 - `.flickerlab` file downloads
 - Later: Load via file input (coming soon)
 
 **PDF Export**:
+
 - Click "PDF Export" in the toolbar
 - Downloads a PDF score of the full sequence (or the current selection)
 - Includes frame numbers, group separators, and sub-frame grids
@@ -214,6 +227,7 @@ src/
 ## State Management (Zustand)
 
 The `useFlickerStore` hook provides:
+
 - Sequence data
 - UI state (view, FPS, selection)
 - Frame operations (toggle, paint, erase, resize)
@@ -256,6 +270,7 @@ Contributions welcome! This is an open-source project designed for artists and d
 ## Contact & Support
 
 For issues, feature requests, or feedback:
+
 - Open an issue on GitHub
 - Experiment with the tool and share your creations!
 

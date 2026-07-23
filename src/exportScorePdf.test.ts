@@ -31,7 +31,10 @@ vi.mock('jspdf', () => ({
 import { jsPDF } from 'jspdf';
 import { exportScorePdf } from './exportScorePdf';
 
-const frame = (cells: number[][], resolution = cells.length as 1 | 2 | 4 | 8): Frame => ({
+const frame = (
+  cells: number[][],
+  resolution = cells.length as 1 | 2 | 4 | 8
+): Frame => ({
   resolution,
   cells: cells as Frame['cells'],
 });
@@ -125,9 +128,7 @@ describe('exportScorePdf', () => {
       filename: 'no-numbers.pdf',
     });
 
-    const numberLabels = textMock.mock.calls.filter(
-      (call) => call[0] === '1'
-    );
+    const numberLabels = textMock.mock.calls.filter((call) => call[0] === '1');
     expect(numberLabels).toHaveLength(0);
   });
 });

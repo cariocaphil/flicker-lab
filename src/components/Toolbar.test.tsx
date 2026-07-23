@@ -35,7 +35,9 @@ describe('Toolbar', () => {
 
   it('renders the PDF Export button', () => {
     render(<Toolbar />);
-    expect(screen.getByRole('button', { name: 'PDF Export' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'PDF Export' })
+    ).toBeInTheDocument();
   });
 
   it('exports the full sequence as PDF when clicked', async () => {

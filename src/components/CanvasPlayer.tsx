@@ -40,7 +40,11 @@ export default function CanvasPlayer({
   return (
     <div className="canvas-player">
       <div className="player-controls">
-        <button className="control-btn" onClick={onPlayPause} title="Play/Pause">
+        <button
+          className="control-btn"
+          onClick={onPlayPause}
+          title="Play/Pause"
+        >
           {isPlaying ? '⏸' : '▶'}
         </button>
         <button

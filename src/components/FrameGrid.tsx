@@ -25,17 +25,23 @@ export default function FrameGrid({
   const [isSelecting, setIsSelecting] = useState(false);
   const selectionStartRef = useRef<number | null>(null);
 
-  const handleMouseDown = useCallback((index: number) => {
-    setIsSelecting(true);
-    selectionStartRef.current = index;
-    onFrameClick(index);
-  }, [onFrameClick]);
+  const handleMouseDown = useCallback(
+    (index: number) => {
+      setIsSelecting(true);
+      selectionStartRef.current = index;
+      onFrameClick(index);
+    },
+    [onFrameClick]
+  );
 
-  const handleMouseEnter = useCallback((index: number) => {
-    if (isSelecting && selectionStartRef.current !== null) {
-      onSelectRange(selectionStartRef.current, index);
-    }
-  }, [isSelecting, onSelectRange]);
+  const handleMouseEnter = useCallback(
+    (index: number) => {
+      if (isSelecting && selectionStartRef.current !== null) {
+        onSelectRange(selectionStartRef.current, index);
+      }
+    },
+    [isSelecting, onSelectRange]
+  );
 
   const handleMouseUp = () => {
     setIsSelecting(false);
@@ -50,7 +56,9 @@ export default function FrameGrid({
       <div className="frames-container">
         {sequence.map((frame, index) => {
           const showSeparator = (index + 1) % groupingSize === 0;
-          const isSelected = selection ? index >= selection.start && index <= selection.end : false;
+          const isSelected = selection
+            ? index >= selection.start && index <= selection.end
+            : false;
           const isCurrent = index === currentFrameIndex;
 
           return (

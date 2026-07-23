@@ -103,7 +103,11 @@ export function exportScorePdf(
     for (let r = 0; r < res; r++) {
       for (let c = 0; c < res; c++) {
         const value = frame.cells[r]?.[c] ?? 0;
-        doc.setFillColor(value === 1 ? 0 : 255, value === 1 ? 0 : 255, value === 1 ? 0 : 255);
+        doc.setFillColor(
+          value === 1 ? 0 : 255,
+          value === 1 ? 0 : 255,
+          value === 1 ? 0 : 255
+        );
         doc.setDrawColor(200, 200, 200);
         doc.setLineWidth(0.25);
         doc.rect(x + c * subSize, y + r * subSize, subSize, subSize, 'FD');
