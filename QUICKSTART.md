@@ -51,10 +51,11 @@ npm run dev
   - **Slider**: Seek to any frame
   - **Time displayed**: Current time / total duration
 
-### 5. Save Your Work
+### 5. Save & Export
 - Changes are **auto-saved** to browser localStorage
 - Click **"Save Project"** to export as `.flickerlab` file
-- Can later import to continue
+- Click **"PDF Export"** to download a PDF score of the sequence (or selection)
+- Can later import a project to continue
 
 
 ## 💡 Tips & Tricks
@@ -156,7 +157,7 @@ npx tsc --noEmit
 2. **Experiment with sub-frames**: Try 4x4 or 8x8 resolution
 3. **Use batch operations**: Select frames and apply Randomize or Duplicate
 4. **Test playback**: View your creation animated
-5. **Share your work**: Export via "Save Project" button
+5. **Share your work**: Save via "Save Project", or download a PDF score via "PDF Export"
 
 ## 🚀 Future Enhancements Coming
 

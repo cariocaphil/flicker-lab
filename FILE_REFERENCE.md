@@ -32,8 +32,9 @@
 ### Components - Navigation & Controls
 | File | Purpose |
 |------|---------|
-| `src/components/Toolbar.tsx` | Top toolbar with view toggle, FPS selector, Save/Export buttons |
+| `src/components/Toolbar.tsx` | Top toolbar with view toggle, FPS selector, PDF Export / Save Project |
 | `src/components/Toolbar.css` | Toolbar styling with responsive design |
+| `src/exportScorePdf.ts` | PDF score export via jsPDF (full sequence or selection) |
 
 ### Components - Structure View
 | File | Purpose |
@@ -102,6 +103,11 @@
 **Files**: 
 - `src/components/PlaybackView.tsx` - Animation loop logic
 - Look at `drawFrame()` function for Canvas rendering
+
+### PDF Score Export
+**Files**:
+- `src/exportScorePdf.ts` - jsPDF score rendering and download
+- `src/components/Toolbar.tsx` - **PDF Export** button handler
 
 ### Tweaking UI Performance
 **Check**:

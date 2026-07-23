@@ -1,5 +1,6 @@
 import { useFlickerStore } from '../store';
 import { FPS } from '../types';
+import { exportScorePdf } from '../exportScorePdf';
 import './Toolbar.css';
 
 export default function Toolbar() {
@@ -9,13 +10,19 @@ export default function Toolbar() {
     fps,
     setFPS,
     saveProject,
+    sequence,
+    selection,
+    groupingSize,
   } = useFlickerStore();
 
   const fpsOptions: FPS[] = [12, 24, 48];
 
   const handleExportScore = () => {
-    // Placeholder for export functionality
-    alert('Export Score feature coming soon');
+    exportScorePdf(sequence, {
+      groupingSize,
+      selectedRange: selection ?? undefined,
+      filename: `flicker-score-${Date.now()}.pdf`,
+    });
   };
 
   const handleSaveProject = () => {
@@ -69,7 +76,7 @@ export default function Toolbar() {
 
       <div className="toolbar-section">
         <button className="tool-btn" onClick={handleExportScore}>
-          Export Score
+          PDF Export
         </button>
         <button className="tool-btn" onClick={handleSaveProject}>
           Save Project
