@@ -113,7 +113,47 @@ npm run build
 
 # Preview production build
 npm run preview
+
+# Quality checks (same as CI)
+npm run format:check
+npm run lint
+npm test
 ```
+
+## Development Workflow
+
+Work happens on feature branches. Continuous Integration validates every change; production deploys only after a merge to `main`.
+
+1. **Develop on a feature branch** — create a branch off `main` for each change.
+2. **Every push runs CI** — the **CI** GitHub Actions workflow runs format, lint, test, and build.
+3. **Pull Requests must pass CI** — enable branch protection so merges into `main` require the CI check (see [docs/github-branch-protection.md](docs/github-branch-protection.md)).
+4. **Merge deploys** — after merging into `main`, the Azure Static Web Apps workflow deploys the latest build to production.
+
+```text
+Feature Branch
+      │
+      ▼
+GitHub Actions (CI)
+      │
+  format
+  lint
+  test
+  build
+      │
+      ▼
+Pull Request
+      │
+      ▼
+Merge into main
+      │
+      ▼
+Azure Static Web Apps
+      │
+      ▼
+Production
+```
+
+CI quality checks and Azure deployment are separate workflows: CI gates merges; Azure only deploys.
 
 ## Usage Guide
 
