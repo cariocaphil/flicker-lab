@@ -61,7 +61,7 @@
 - Manual save/export functionality (file download)
 
 ### ✅ User Interface
-- **Toolbar**: View toggle, FPS control, Save/Export buttons
+- **Toolbar**: View toggle, FPS control, PDF Export / Save Project buttons
 - **Structure View**: Frame grid + editing panel side-by-side
 - **Playback View**: Centered canvas player with controls
 - **Responsive Design**: Adapts to different screen sizes
@@ -235,6 +235,7 @@ UI updates reflect changes
 ## 🚧 Future Enhancements
 
 ### Phase 2: Advanced Features
+- [x] Export as PDF score
 - [ ] Export as PNG score image
 - [ ] Export as SVG score image
 - [ ] Export as WebM video
@@ -274,6 +275,7 @@ UI updates reflect changes
 ✅ State management with Zustand
 ✅ localStorage persistence
 ✅ Manual save/export functionality
+✅ PDF score export (jsPDF)
 ✅ Responsive UI with dark theme
 ✅ Full TypeScript coverage
 ✅ Production build passing

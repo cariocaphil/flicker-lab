@@ -64,12 +64,12 @@ type Sequence = Frame[]         // Array of 128+ frames
 - Update Canvas rendering logic
 - Test with different FPS values and resolutions
 
-### Adding Export Functionality
+### Export Functionality
 
-- Create `ExportPanel` component
-- Implement Canvas/SVG rendering
-- Use `canvasRef` to access rendered content
-- Trigger download with Blob + URL.createObjectURL
+- **PDF score**: Implemented in `src/exportScorePdf.ts`, triggered from Toolbar **PDF Export**
+- Uses jsPDF to draw frames (including sub-frame grids), numbers, and group separators
+- Respects current selection range when present; otherwise exports the full sequence
+- For PNG/SVG score images or video export: extend export helpers similarly (canvas/Blob download)
 
 ## Best Practices
 
@@ -169,7 +169,7 @@ onSeek -> setCurrentFrameIndex -> visually updates grid
 
 ## Future Development Areas
 
-1. **Export**: PNG/SVG score image, WebM/MP4 video
+1. **Export**: PNG/SVG score image, WebM/MP4 video (PDF score already shipped)
 2. **Undo/Redo**: Implement History stack
 3. **Keyboard shortcuts**: Map events to actions
 4. **Themes**: Light/dark mode toggle

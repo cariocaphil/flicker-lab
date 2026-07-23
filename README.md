@@ -51,11 +51,11 @@ When frames are selected:
 - **Manual Save**: Export project as `.flickerlab` JSON file
 - **Persistent State**: Resume work across sessions
 
-### 📊 Export (Planned)
-- **Export Score**: Render entire sequence as PNG/SVG image
-  - Full sequence or selected range
-  - Toggle grid/separators/frame numbers
-  - Adjustable cell size
+### 📊 Export
+- **PDF Export**: Download the sequence as a PDF score
+  - Full sequence, or selected range when frames are selected
+  - Frame numbers and group separators
+  - Sub-frame grids preserved for higher resolutions
 - **Export Video**: WebM/MP4 output (future)
 
 ## Data Model
@@ -159,6 +159,11 @@ npm run preview
 - `.flickerlab` file downloads
 - Later: Load via file input (coming soon)
 
+**PDF Export**:
+- Click "PDF Export" in the toolbar
+- Downloads a PDF score of the full sequence (or the current selection)
+- Includes frame numbers, group separators, and sub-frame grids
+
 ## Project Structure
 
 ```
@@ -167,6 +172,7 @@ src/
 ├── App.tsx              # Main app component
 ├── types.ts             # TypeScript type definitions
 ├── store.ts             # Zustand state management
+├── exportScorePdf.ts    # PDF score export (jsPDF)
 ├── index.css            # Global styles
 ├── App.css              #App layout styles
 └── components/
@@ -201,6 +207,7 @@ src/
 - **TypeScript**: Type safety
 - **Vite**: Build tool
 - **Zustand**: Lightweight state management
+- **jsPDF**: PDF score export
 - **Canvas API**: Playback rendering
 - **localStorage**: Persistence
 
@@ -215,10 +222,13 @@ The `useFlickerStore` hook provides:
 
 All changes auto-persist to localStorage.
 
+PDF score export is handled by `exportScorePdf` (triggered from the toolbar **PDF Export** button).
+
 ## Future Enhancements
 
 - [ ] Undo/Redo stack
 - [ ] Video export (WebM/MP4)
+- [ ] PNG/SVG score image export
 - [ ] Frame-by-frame animation editor
 - [ ] Preset patterns library
 - [ ] Timeline zoom/scroll
