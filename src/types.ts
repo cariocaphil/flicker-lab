@@ -23,7 +23,7 @@ export interface ExportOptions {
   showGrid: boolean;
   showFrameNumbers: boolean;
   showSeparators: boolean;
-  format: 'png' | 'svg';
+  format: 'png' | 'svg' | 'pdf';
   selectedRange?: {
     start: number;
     end: number;
