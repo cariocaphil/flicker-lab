@@ -15,17 +15,23 @@ export default function StructureView() {
     invertFrame,
   } = useFlickerStore();
 
-  const handleSelectRange = useCallback((start: number, end: number) => {
-    setSelection({ start: Math.min(start, end), end: Math.max(start, end) });
-  }, [setSelection]);
+  const handleSelectRange = useCallback(
+    (start: number, end: number) => {
+      setSelection({ start: Math.min(start, end), end: Math.max(start, end) });
+    },
+    [setSelection]
+  );
 
   const handleClearSelection = () => {
     setSelection(null);
   };
 
-  const handleFrameDoubleClick = useCallback((frameIndex: number) => {
-    invertFrame(frameIndex);
-  }, [invertFrame]);
+  const handleFrameDoubleClick = useCallback(
+    (frameIndex: number) => {
+      invertFrame(frameIndex);
+    },
+    [invertFrame]
+  );
 
   return (
     <div className="structure-view">
@@ -34,9 +40,11 @@ export default function StructureView() {
           <div className="grid-controls">
             <div className="grouping-controls">
               <label>Frame Grouping:</label>
-              <select 
-                value={groupingSize} 
-                onChange={(e) => setGroupingSize(parseInt(e.target.value) as 4 | 8 | 16 | 32)}
+              <select
+                value={groupingSize}
+                onChange={(e) =>
+                  setGroupingSize(parseInt(e.target.value) as 4 | 8 | 16 | 32)
+                }
               >
                 <option value={4}>Every 4 frames</option>
                 <option value={8}>Every 8 frames</option>
@@ -47,7 +55,10 @@ export default function StructureView() {
             {selection && (
               <div className="selection-info">
                 Frames {selection.start + 1} - {selection.end + 1} selected
-                <button className="clear-selection-btn" onClick={handleClearSelection}>
+                <button
+                  className="clear-selection-btn"
+                  onClick={handleClearSelection}
+                >
                   Clear
                 </button>
               </div>
@@ -64,9 +75,7 @@ export default function StructureView() {
           />
         </div>
 
-        <EditingPanel 
-          frameIndex={currentFrameIndex}
-        />
+        <EditingPanel frameIndex={currentFrameIndex} />
       </div>
     </div>
   );

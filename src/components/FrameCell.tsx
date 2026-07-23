@@ -21,7 +21,6 @@ export default function FrameCell({
   onMouseEnter,
   onDoubleClick,
 }: FrameCellProps) {
-
   const handleClick = useCallback(() => {
     onMouseDown(frameIndex);
   }, [frameIndex, onMouseDown]);
@@ -46,7 +45,9 @@ export default function FrameCell({
     >
       <div className="frame-preview">
         {frame.resolution === 1 ? (
-          <div className={`frame-content single-cell ${frame.cells[0][0] === 1 ? 'black' : 'white'}`} />
+          <div
+            className={`frame-content single-cell ${frame.cells[0][0] === 1 ? 'black' : 'white'}`}
+          />
         ) : (
           <div className="frame-grid-preview">
             {frame.cells.map((row, rowIdx) => (

@@ -26,16 +26,18 @@ Flicker Lab is a React + TypeScript web app for composing flicker films (tempora
 ## Core concepts
 
 ### Frame Model
+
 ```typescript
-type Cell = 0 | 1  // 0: white, 1: black
+type Cell = 0 | 1; // 0: white, 1: black
 type Frame = {
-  resolution: 1 | 2 | 4 | 8,  // sub-frame grid size
-  cells: Cell[][]              // 2D grid of cells
-}
-type Sequence = Frame[]         // Array of 128+ frames
+  resolution: 1 | 2 | 4 | 8; // sub-frame grid size
+  cells: Cell[][]; // 2D grid of cells
+};
+type Sequence = Frame[]; // Array of 128+ frames
 ```
 
 ### State Structure
+
 - `sequence`: Array of Frame objects
 - `currentFrameIndex`: Active frame in grid
 - `selection`: Fram range for batch operations
@@ -74,21 +76,25 @@ type Sequence = Frame[]         // Array of 128+ frames
 ## Best Practices
 
 ### TypeScript
+
 - Use `type` for component props interfaces
 - Define data model types in `types.ts`
 - Strongly type Zustand callbacks
 
 ### React
+
 - Use `useCallback()` for memoized callbacks
 - Clean up effects with return statements
 - Destructure from hooks at component top
 
 ### Performance
+
 - Canvas rendering keeps playback smooth
 - Frame grid scrollable with flex overflow
 - Heavy state updates are granular
 
 ### Styling
+
 - BEM convention for CSS classes
 - Responsive design with media queries
 - Dark theme by default
@@ -106,12 +112,13 @@ type Sequence = Frame[]         // Array of 128+ frames
 export const useFlickerStore = create<FlickerStore>((set, get) => ({
   // State
   sequence: [],
-  
+
   // Actions using set()
-  toggleCell: (index) => set((state) => ({
-    // Return only changed fields
-  })),
-  
+  toggleCell: (index) =>
+    set((state) => ({
+      // Return only changed fields
+    })),
+
   // Derived actions using get()
   someAction: () => {
     const { sequence } = get();
@@ -123,6 +130,7 @@ export const useFlickerStore = create<FlickerStore>((set, get) => ({
 ## Common Patterns
 
 ### Selection Range
+
 ```typescript
 // User selects frames 10-20
 setSelection({ start: 10, end: 20 })
@@ -135,15 +143,17 @@ setSelection(null)
 ```
 
 ### Frame Editing
+
 ```typescript
 // Modify single frame cell
-paintCells(frameIndex, [{ row, col }])
+paintCells(frameIndex, [{ row, col }]);
 
 // Change frame resolution
-setFrameResolution(frameIndex, 4)  // 4x4 grid
+setFrameResolution(frameIndex, 4); // 4x4 grid
 ```
 
 ### Playback Sync
+
 ```typescript
 // Structure clicking syncs to Playback
 onFrameClick -> setCurrentFrameIndex -> drawFrame()

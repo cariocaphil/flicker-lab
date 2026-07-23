@@ -10,11 +10,13 @@
 ## 🎯 Core Features Implemented
 
 ### ✅ Dual View System
+
 - **Structure View** (Default): Grid-based frame composition
 - **Playback View**: Canvas-based animation preview
 - View toggle in toolbar with easy switching
 
 ### ✅ Frame Grid & Timeline
+
 - 128 frames initialized
 - Visual frame numbering (1-indexed for user convenience)
 - Frame separators (4/8/16/32 configurable)
@@ -22,6 +24,7 @@
 - Current frame indicator (red border)
 
 ### ✅ Sub-frame Editing
+
 - 4 resolution levels: 1x1, 2x2, 4x4, 8x8
 - Frame Editor panel with clickable cells
 - Paint (click) and erase (Shift+click) functionality
@@ -29,6 +32,7 @@
 - Dynamic grid resolution display
 
 ### ✅ Selection & Range Operations
+
 - Click to select individual frame
 - Click + drag to select range
 - Visual selection highlighting (blue border)
@@ -36,6 +40,7 @@
 - Clear button to deselect
 
 ### ✅ Batch Editing Operations
+
 - **Duplicate**: Copy selected frame range to next position
 - **Reverse**: Reverse order of selected frames
 - **Randomize**: Fill selected frames with random black/white (density configurable)
@@ -43,6 +48,7 @@
 - All operations trigger automatic save
 
 ### ✅ Playback System
+
 - Canvas rendering (400x400 pixels default)
 - Frame-by-frame animation
 - Play/Pause button
@@ -54,6 +60,7 @@
 - Smooth requestAnimationFrame rendering
 
 ### ✅ State Management
+
 - Zustand store with full type safety
 - Auto-save to localStorage (`flickerlab-project` key)
 - Persistent state across page reloads
@@ -61,6 +68,7 @@
 - Manual save/export functionality (file download)
 
 ### ✅ User Interface
+
 - **Toolbar**: View toggle, FPS control, PDF Export / Save Project buttons
 - **Structure View**: Frame grid + editing panel side-by-side
 - **Playback View**: Centered canvas player with controls
@@ -119,12 +127,14 @@ flicker-lab/
 ## 🎨 User Interface Features
 
 ### Colors & Theme
+
 - Dark background: #1a1a1a, #0a0a0a
 - Accent color: #646cff (blue)
 - Text: #fff (white), #ccc/#aaa (secondary)
 - Highlights: #ff6b6b (red for current frame), #535bf2 (hover)
 
 ### Interactive Elements
+
 - Buttons with hover/active states
 - Toggle buttons with active styling
 - Sliders with smooth drag
@@ -134,17 +144,19 @@ flicker-lab/
 ## 📊 Data Model
 
 ### Frame Structure
+
 ```typescript
 interface Frame {
-  resolution: 1 | 2 | 4 | 8
-  cells: Cell[][]
+  resolution: 1 | 2 | 4 | 8;
+  cells: Cell[][];
 }
 
-type Cell = 0 | 1
-type Sequence = Frame[]
+type Cell = 0 | 1;
+type Sequence = Frame[];
 ```
 
 ### Store State
+
 ```typescript
 {
   sequence: Frame[]
@@ -162,6 +174,7 @@ type Sequence = Frame[]
 ## 🚀 Running the App
 
 ### Development
+
 ```bash
 cd /Users/p.dijon.de.monteton/practice-folder/flicker-lab
 npm run dev
@@ -169,12 +182,14 @@ npm run dev
 ```
 
 ### Production Build
+
 ```bash
 npm run build
 npm run preview
 ```
 
 ### Deployment
+
 Built files in `dist/` ready for static hosting (Vercel, Netlify, GitHub Pages, etc.)
 
 ## 📝 localStorage Schema
@@ -187,7 +202,7 @@ Value: JSON stringified `Sequence` array
   {
     "resolution": 1,
     "cells": [[0]]
-  },
+  }
   // ... 128 frames
 ]
 ```
@@ -235,6 +250,7 @@ UI updates reflect changes
 ## 🚧 Future Enhancements
 
 ### Phase 2: Advanced Features
+
 - [x] Export as PDF score
 - [ ] Export as PNG score image
 - [ ] Export as SVG score image
@@ -245,12 +261,14 @@ UI updates reflect changes
 - [ ] Light/Dark theme toggle
 
 ### Phase 3: Collaboration & Sharing
+
 - [ ] Shareable URL links
 - [ ] Real-time URL sync
 - [ ] Project import/export
 - [ ] Cloud sync
 
 ### Phase 4: Advanced Editing
+
 - [ ] Frame copy/paste
 - [ ] Multi-frame transform tools
 - [ ] Frame interpolation/tweening

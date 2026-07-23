@@ -25,28 +25,31 @@ export default function PlaybackView() {
     setDuration((sequence.length * 1000) / fps);
   }, [sequence.length, fps]);
 
-  const drawFrame = useCallback((frameIndex: number) => {
-    if (!canvasRef.current) return;
-    const ctx = canvasRef.current.getContext('2d');
-    if (!ctx) return;
+  const drawFrame = useCallback(
+    (frameIndex: number) => {
+      if (!canvasRef.current) return;
+      const ctx = canvasRef.current.getContext('2d');
+      if (!ctx) return;
 
-    const frame = sequence[frameIndex];
-    const cellSize = canvasRef.current.width / frame.resolution;
+      const frame = sequence[frameIndex];
+      const cellSize = canvasRef.current.width / frame.resolution;
 
-    // Clear canvas
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+      // Clear canvas
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 
-    // Draw cells
-    for (let row = 0; row < frame.resolution; row++) {
-      for (let col = 0; col < frame.resolution; col++) {
-        if (frame.cells[row][col] === 1) {
-          ctx.fillStyle = '#000';
-          ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+      // Draw cells
+      for (let row = 0; row < frame.resolution; row++) {
+        for (let col = 0; col < frame.resolution; col++) {
+          if (frame.cells[row][col] === 1) {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+          }
         }
       }
-    }
-  }, [sequence]);
+    },
+    [sequence]
+  );
 
   useEffect(() => {
     if (!isPlaying) {
@@ -93,7 +96,18 @@ export default function PlaybackView() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isPlaying, currentTime, duration, fps, isLooping, sequence.length, setCurrentFrameIndex, drawFrame, currentFrameIndex, setIsPlaying]);
+  }, [
+    isPlaying,
+    currentTime,
+    duration,
+    fps,
+    isLooping,
+    sequence.length,
+    setCurrentFrameIndex,
+    drawFrame,
+    currentFrameIndex,
+    setIsPlaying,
+  ]);
 
   useEffect(() => {
     drawFrame(currentFrameIndex);
