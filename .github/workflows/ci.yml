@@ -1,3 +1,9 @@
+# CI
+
+# Quality gates for every push and pull request.
+# Any failing step fails the job and blocks merge when branch protection is enabled.
+# See docs/github-branch-protection.md for requiring this check on main.
+
 name: CI
 
 on:
