@@ -240,7 +240,7 @@ PDF score export is handled by `exportScorePdf` (triggered from the toolbar **PD
 
 ## Inspiration
 
-- **Arnulf Rainer** - Structural film pioneer with flicker films
+- **Arnulf Rainer** - Legendary flicker film by Peter Kubelka
 - **Step sequencers** - Music production workflow
 - **Pixel art editors** - Grid-based editing paradigm
 - **Minimalist art** - Focus on essential elements (light/time)
