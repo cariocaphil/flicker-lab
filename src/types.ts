@@ -11,6 +11,31 @@ export interface Frame {
 
 export type Sequence = Frame[];
 
+/**
+ * Canonical persisted project document.
+ * Used by explicit save/load via a ProjectRepository (future API/PostgreSQL).
+ * Distinct from the localStorage draft, which stores only a Sequence.
+ */
+export interface FlickerProject {
+  id: string;
+  name: string;
+  sequence: Sequence;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/** Input for creating a project; id and timestamps are assigned by the repository. */
+export interface CreateFlickerProjectInput {
+  name: string;
+  sequence: Sequence;
+}
+
+/** Partial update payload for an existing project. */
+export interface UpdateFlickerProjectInput {
+  name?: string;
+  sequence?: Sequence;
+}
+
 export type GroupingSize = 4 | 8 | 16 | 32;
 
 export type FPS = 12 | 24 | 48;

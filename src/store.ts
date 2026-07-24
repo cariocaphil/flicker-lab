@@ -97,7 +97,8 @@ export const useFlickerStore = create<FlickerStore>((set, get) => {
         .fill(null)
         .map(() => createDefaultFrame());
 
-  // Auto-save to localStorage on any change
+  // Auto-save current Sequence to localStorage as a browser draft only.
+  // Explicitly saved projects will go through ProjectRepository (see services/).
   const saveToLocalStorage = (state: FlickerStore) => {
     localStorage.setItem('flickerlab-project', JSON.stringify(state.sequence));
   };
