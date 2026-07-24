@@ -8,7 +8,8 @@ Flicker Lab is a React + TypeScript web app for composing flicker films (tempora
 
 ### Key Components
 
-- **Zustand Store** (`src/store.ts`): Global state management with localStorage persistence
+- **Zustand Store** (`src/store.ts`): Global UI/sequence state; auto-saves Sequence draft to localStorage
+- **ProjectRepository** (`src/services/projectRepository.ts`): Interface for explicitly saved `FlickerProject`s (future API/PostgreSQL)
 - **StructureView**: Frame grid and composition interface
 - **PlaybackView**: Canvas-based animation playback
 - **FrameGrid/FrameCell**: Timeline and individual frame display
@@ -19,9 +20,11 @@ Flicker Lab is a React + TypeScript web app for composing flicker films (tempora
 
 1. User interacts with FrameCell → toggleCell action
 2. Action updates sequence in Zustand store
-3. Store auto-saves to localStorage
+3. Store auto-saves Sequence draft to localStorage (`flickerlab-project`)
 4. PlaybackView renders using Canvas API
 5. Current frame syncs between views
+
+Explicit project CRUD (list/get/create/update/delete) will go through `ProjectRepository`, not the draft key.
 
 ## Core concepts
 
@@ -36,11 +39,23 @@ type Frame = {
 type Sequence = Frame[]; // Array of 128+ frames
 ```
 
+### FlickerProject (explicit saves)
+
+```typescript
+interface FlickerProject {
+  id: string;
+  name: string;
+  sequence: Sequence;
+  createdAt: string;
+  updatedAt: string;
+}
+```
+
 ### State Structure
 
 - `sequence`: Array of Frame objects
 - `currentFrameIndex`: Active frame in grid
-- `selection`: Fram range for batch operations
+- `selection`: Frame range for batch operations
 - `fps`: Playback speed (12/24/48)
 - `isPlaying/isLooping`: Playback state
 - `groupingSize`: Visual separator interval
@@ -52,13 +67,19 @@ type Sequence = Frame[]; // Array of 128+ frames
 1. **Add state** to `useFlickerStore` in `store.ts`
 2. **Create UI component** in `src/components/`
 3. **Connect via hooks**: `const { state, action } = useFlickerStore()`
-4. **Auto-saves to localStorage** (handled by store)
+4. **Draft auto-saves to localStorage** (handled by store for sequence edits)
 
 ### Modifying Frame Operations
 
 - Edit `toggleCell`, `paintCells`, `eraseCells` in store
-- All operations trigger localStorage save
+- Sequence mutations trigger localStorage draft save
 - Update dependency arrays in useEffect hooks
+
+### Persistence / projects
+
+- localStorage draft ≠ explicit projects
+- Implement API adapters behind `ProjectRepository`; do not put HTTP in the store or Toolbar
+- Keep PDF export consuming `Sequence` directly
 
 ### Improving Playback
 
@@ -179,12 +200,13 @@ onSeek -> setCurrentFrameIndex -> visually updates grid
 
 ## Future Development Areas
 
-1. **Export**: PNG/SVG score image, WebM/MP4 video (PDF score already shipped)
-2. **Undo/Redo**: Implement History stack
-3. **Keyboard shortcuts**: Map events to actions
-4. **Themes**: Light/dark mode toggle
-5. **Templates**: Pre-made pattern library
-6. **Collaboration**: Real-time URL sync
+1. **API projects**: Implement `ProjectRepository` over PostgreSQL/HTTP; wire UI
+2. **Export**: PNG/SVG score image, WebM/MP4 video (PDF score already shipped)
+3. **Undo/Redo**: Implement History stack
+4. **Keyboard shortcuts**: Map events to actions
+5. **Themes**: Light/dark mode toggle
+6. **Templates**: Pre-made pattern library
+7. **Collaboration**: Real-time URL sync
 
 ## Performance Considerations
 

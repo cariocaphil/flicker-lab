@@ -58,10 +58,10 @@ npm run dev
 
 ### 5. Save & Export
 
-- Changes are **auto-saved** to browser localStorage
-- Click **"Save Project"** to export as `.flickerlab` file
+- Sequence edits are **auto-saved** as a browser draft (`localStorage` key `flickerlab-project`)
+- Click **"Save Project"** to download a `.flickerlab` file (`name`, `timestamp`, `sequence`)
 - Click **"PDF Export"** to download a PDF score of the sequence (or selection)
-- Can later import a project to continue
+- Explicit cloud/DB projects will use `ProjectRepository` later (not in the UI yet)
 
 ## 💡 Tips & Tricks
 
@@ -102,7 +102,8 @@ Projects are stored as JSON:
 }
 ```
 
-Auto-saved to localStorage under key `'flickerlab-project'`
+Auto-saved draft: localStorage key `'flickerlab-project'` stores the `sequence` array only.
+Explicit projects (future API) use the `FlickerProject` shape (`id`, `name`, `sequence`, `createdAt`, `updatedAt`).
 
 ## 🎬 Playback Details
 

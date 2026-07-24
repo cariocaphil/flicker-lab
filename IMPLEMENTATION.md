@@ -62,10 +62,11 @@
 ### ✅ State Management
 
 - Zustand store with full type safety
-- Auto-save to localStorage (`flickerlab-project` key)
-- Persistent state across page reloads
+- Auto-save **draft** Sequence to localStorage (`flickerlab-project` key)
+- Persistent draft across page reloads
 - All state updates reactive (React hooks)
-- Manual save/export functionality (file download)
+- Manual `.flickerlab` file download (`name`, `timestamp`, `sequence`)
+- `FlickerProject` + `ProjectRepository` interface ready for future API/PostgreSQL
 
 ### ✅ User Interface
 
@@ -95,8 +96,11 @@ flicker-lab/
     ├── index.css             # Global styles
     ├── App.tsx               # Main component
     ├── App.css               # App layout styles
-    ├── types.ts              # TypeScript types
-    ├── store.ts              # Zustand state management
+    ├── types.ts              # TypeScript types (incl. FlickerProject)
+    ├── store.ts              # Zustand + localStorage draft
+    ├── exportScorePdf.ts     # PDF score export
+    ├── services/
+    │   └── projectRepository.ts  # ProjectRepository interface
     └── components/
         ├── Toolbar.tsx       # Top toolbar
         ├── Toolbar.css
@@ -155,6 +159,20 @@ type Cell = 0 | 1;
 type Sequence = Frame[];
 ```
 
+### Persisted project (canonical)
+
+```typescript
+interface FlickerProject {
+  id: string;
+  name: string;
+  sequence: Sequence;
+  createdAt: string;
+  updatedAt: string;
+}
+```
+
+`ProjectRepository` (`src/services/projectRepository.ts`) defines async list/get/create/update/delete. No HTTP/DB adapter yet.
+
 ### Store State
 
 ```typescript
@@ -192,10 +210,12 @@ npm run preview
 
 Built files in `dist/` ready for static hosting (Vercel, Netlify, GitHub Pages, etc.)
 
-## 📝 localStorage Schema
+## 📝 Persistence
 
-Key: `'flickerlab-project'`
-Value: JSON stringified `Sequence` array
+### localStorage draft
+
+Key: `'flickerlab-project'`  
+Value: JSON-stringified `Sequence` only (not a full `FlickerProject`)
 
 ```json
 [
@@ -203,11 +223,18 @@ Value: JSON stringified `Sequence` array
     "resolution": 1,
     "cells": [[0]]
   }
-  // ... 128 frames
 ]
 ```
 
-Auto-updated on every state change.
+Auto-updated on every sequence mutation in the store. Separate from explicit project CRUD.
+
+### File download (`.flickerlab`)
+
+`{ name, timestamp, sequence }` — compatibility format used by **Save Project**.
+
+### ProjectRepository
+
+Interface only today; future API-backed implementation will persist `FlickerProject` documents. Keep adapters out of the Zustand store and UI.
 
 ## 🎬 Playback Algorithm
 
@@ -241,7 +268,8 @@ UI updates reflect changes
 ✅ **Full TypeScript implementation** - Zero `any` types
 ✅ **Responsive design** - Works on desktop, tablet, mobile
 ✅ **Performance optimized** - Canvas rendering, efficient state updates
-✅ **Persistent storage** - Auto-save to localStorage
+✅ **Persistent storage** - Auto-save Sequence draft to localStorage
+✅ **Project repository seam** - `FlickerProject` + `ProjectRepository` for future API
 ✅ **Clean architecture** - Separated concerns, reusable components
 ✅ **Professional UI** - Dark theme, intuitive controls
 ✅ **Comprehensive docs** - README, QUICKSTART, Copilot instructions
@@ -262,9 +290,11 @@ UI updates reflect changes
 
 ### Phase 3: Collaboration & Sharing
 
+- [ ] API-backed `ProjectRepository` (PostgreSQL)
+- [ ] UI for list/open/save remote projects
 - [ ] Shareable URL links
 - [ ] Real-time URL sync
-- [ ] Project import/export
+- [ ] Project import/export (file UI)
 - [ ] Cloud sync
 
 ### Phase 4: Advanced Editing
@@ -291,8 +321,9 @@ UI updates reflect changes
 ✅ Batch operations (duplicate, reverse, randomize, clear)
 ✅ Playback with controls on Canvas
 ✅ State management with Zustand
-✅ localStorage persistence
-✅ Manual save/export functionality
+✅ localStorage draft persistence
+✅ Manual `.flickerlab` file export
+✅ `FlickerProject` + `ProjectRepository` seam (API-ready)
 ✅ PDF score export (jsPDF)
 ✅ Responsive UI with dark theme
 ✅ Full TypeScript coverage

@@ -55,9 +55,10 @@ When frames are selected:
 
 ### 💾 Project Management
 
-- **Auto-save**: Changes persist to localStorage
-- **Manual Save**: Export project as `.flickerlab` JSON file
-- **Persistent State**: Resume work across sessions
+- **Auto-save (draft)**: Current sequence persists to localStorage under `flickerlab-project`
+- **Manual Save**: Export project as `.flickerlab` JSON file (`name`, `timestamp`, `sequence`)
+- **Persistent State**: Resume the local draft across sessions
+- **Project repository (planned API)**: `ProjectRepository` interface + `FlickerProject` model prepare for PostgreSQL-backed saves
 
 ### 📊 Export
 
@@ -77,8 +78,23 @@ type Frame = {
   cells: Cell[][];
 };
 
-type Sequence = Frame[];
+type Sequence = Frame[]; // the visual score (timeline)
+
+/** Canonical document for explicitly saved projects (future API). */
+interface FlickerProject {
+  id: string;
+  name: string;
+  sequence: Sequence;
+  createdAt: string;
+  updatedAt: string;
+}
 ```
+
+**Persistence split**
+
+- **Draft**: localStorage stores only a `Sequence` (auto-updated on edits).
+- **Explicit projects**: `FlickerProject` + `ProjectRepository` (`src/services/projectRepository.ts`) define list/get/create/update/delete for a future API. Not wired to the UI yet.
+- **File download**: `.flickerlab` remains `{ name, timestamp, sequence }` for compatibility.
 
 ## Getting Started
 
@@ -199,17 +215,24 @@ CI quality checks and Azure deployment are separate workflows: CI gates merges; 
 
 ### Saving & Loading
 
-**Auto-save**:
+**Auto-save (browser draft)**:
 
-- Changes automatically saved to browser localStorage
-- App resume where you left off
+- Sequence automatically saved to localStorage key `flickerlab-project`
+- App resumes the draft where you left off
+- Does not store project name, id, or timestamps
 
-**Manual Save**:
+**Manual Save (file download)**:
 
 - Click "Save Project" button
 - Enter project name
-- `.flickerlab` file downloads
+- `.flickerlab` file downloads (`name`, `timestamp`, `sequence`)
 - Later: Load via file input (coming soon)
+
+**Explicit project storage (architecture ready)**:
+
+- `FlickerProject` / `CreateFlickerProjectInput` in `src/types.ts`
+- `ProjectRepository` in `src/services/projectRepository.ts`
+- Future API/PostgreSQL adapter will implement the repository; local draft behavior stays separate
 
 **PDF Export**:
 
@@ -223,11 +246,13 @@ CI quality checks and Azure deployment are separate workflows: CI gates merges; 
 src/
 ├── main.tsx              # Entry point
 ├── App.tsx              # Main app component
-├── types.ts             # TypeScript type definitions
-├── store.ts             # Zustand state management
+├── types.ts             # Domain types (Frame, Sequence, FlickerProject, …)
+├── store.ts             # Zustand state + localStorage draft
 ├── exportScorePdf.ts    # PDF score export (jsPDF)
+├── services/
+│   └── projectRepository.ts  # ProjectRepository interface (future API)
 ├── index.css            # Global styles
-├── App.css              #App layout styles
+├── App.css              # App layout styles
 └── components/
     ├── Toolbar.tsx      # Top toolbar with controls
     ├── StructureView.tsx # Composition grid view
@@ -262,7 +287,8 @@ src/
 - **Zustand**: Lightweight state management
 - **jsPDF**: PDF score export
 - **Canvas API**: Playback rendering
-- **localStorage**: Persistence
+- **localStorage**: Automatic sequence draft
+- **ProjectRepository**: Interface for future API-backed projects
 
 ## State Management (Zustand)
 
@@ -272,14 +298,16 @@ The `useFlickerStore` hook provides:
 - UI state (view, FPS, selection)
 - Frame operations (toggle, paint, erase, resize)
 - Batch operations (duplicate, reverse, randomize, clear)
-- File I/O (save/load projects)
+- File I/O (`.flickerlab` download / `loadProject` helper)
 
-All changes auto-persist to localStorage.
+Sequence edits auto-persist to the localStorage **draft**. Explicit cloud/DB projects will go through `ProjectRepository`, not the store’s draft key.
 
 PDF score export is handled by `exportScorePdf` (triggered from the toolbar **PDF Export** button).
 
 ## Future Enhancements
 
+- [ ] API-backed `ProjectRepository` (PostgreSQL)
+- [ ] Wire UI to list/open/save remote projects
 - [ ] Undo/Redo stack
 - [ ] Video export (WebM/MP4)
 - [ ] PNG/SVG score image export

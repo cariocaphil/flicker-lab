@@ -23,15 +23,22 @@
 
 ### Type Definitions
 
-| File           | Purpose                                                                |
-| -------------- | ---------------------------------------------------------------------- |
-| `src/types.ts` | All TypeScript interfaces and types (Cell, Frame, Sequence, FPS, etc.) |
+| File           | Purpose                                                                                         |
+| -------------- | ----------------------------------------------------------------------------------------------- |
+| `src/types.ts` | Domain types: Cell, Frame, Sequence, FlickerProject, Create/Update inputs, export options, etc. |
 
 ### State Management
 
-| File           | Purpose                                                     |
-| -------------- | ----------------------------------------------------------- |
-| `src/store.ts` | Zustand store with all actions and localStorage persistence |
+| File           | Purpose                                                                         |
+| -------------- | ------------------------------------------------------------------------------- |
+| `src/store.ts` | Zustand store (sequence + UI) and localStorage draft under `flickerlab-project` |
+
+### Persistence services
+
+| File                                     | Purpose                                                                   |
+| ---------------------------------------- | ------------------------------------------------------------------------- |
+| `src/services/projectRepository.ts`      | `ProjectRepository` interface for explicit projects (future API/Postgres) |
+| `src/services/projectRepository.test.ts` | Contract tests via in-memory fake                                         |
 
 ### Components - Navigation & Controls
 
@@ -72,12 +79,13 @@
 
 ### Documentation
 
-| File                              | Purpose                                       |
-| --------------------------------- | --------------------------------------------- |
-| `README.md`                       | Complete feature documentation and user guide |
-| `QUICKSTART.md`                   | Getting started guide for new users           |
-| `IMPLEMENTATION.md`               | Technical implementation summary              |
-| `.github/copilot-instructions.md` | Developer guide for future enhancements       |
+| File                               | Purpose                                       |
+| ---------------------------------- | --------------------------------------------- |
+| `README.md`                        | Complete feature documentation and user guide |
+| `QUICKSTART.md`                    | Getting started guide for new users           |
+| `IMPLEMENTATION.md`                | Technical implementation summary              |
+| `docs/github-branch-protection.md` | Manual branch protection setup for `main`     |
+| `.github/copilot-instructions.md`  | Developer guide for future enhancements       |
 
 ---
 
@@ -113,8 +121,15 @@
 
 **File**: `src/types.ts`
 
-- Add/modify TypeScript interfaces
-- Update all references in store and components
+- Add/modify TypeScript interfaces (`Frame`, `Sequence`, `FlickerProject`, …)
+- Update store, services, and components that consume them
+
+### Project persistence (repository)
+
+**Files**:
+
+- `src/services/projectRepository.ts` — async CRUD interface for `FlickerProject`
+- Implement a future HTTP/Postgres adapter behind this interface; keep localStorage draft in `store.ts`
 
 ### Fixing Playback Issues
 
