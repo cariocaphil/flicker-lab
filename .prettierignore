@@ -5,6 +5,8 @@ coverage
 *.min.js
 vite.config.js
 vite.config.d.ts
+drizzle.config.js
+drizzle.config.d.ts
 .env
 .env.example
 drizzle/meta

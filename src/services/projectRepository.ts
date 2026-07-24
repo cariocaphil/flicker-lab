@@ -10,9 +10,9 @@ import {
  * - localStorage (`flickerlab-project`) remains the automatic browser draft
  *   of the current Sequence; it is not managed through this interface.
  * - This repository represents projects the user intentionally creates,
- *   updates, lists, or deletes (future remote storage).
- * - A future API-backed implementation (e.g. PostgreSQL via HTTP) will
- *   implement this interface without changing Zustand or UI callers.
+ *   updates, lists, or deletes.
+ * - Server: DrizzleProjectRepository (PostgreSQL). Browser: call the HTTP API;
+ *   never import Drizzle or DATABASE_URL into client code.
  */
 export interface ProjectRepository {
   list(): Promise<FlickerProject[]>;

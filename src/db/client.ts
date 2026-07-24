@@ -3,12 +3,11 @@ import postgres from 'postgres';
 import * as schema from './schema';
 
 /**
- * Shared PostgreSQL + Drizzle client for future API routes.
+ * Shared PostgreSQL + Drizzle client for the API server.
  *
- * Not imported by the Vite/React app today — localStorage still holds the
- * browser draft, and ProjectRepository has no DB adapter yet.
- * Lazily connects so tooling/tests can import types without a live DATABASE_URL
- * until getDb() is called.
+ * Used only by server-side code (e.g. DrizzleProjectRepository).
+ * The Vite/React app must never import this module — it talks to /api over HTTP.
+ * Browser localStorage (`flickerlab-project`) remains the automatic draft.
  */
 export type Db = ReturnType<typeof createDb>;
 

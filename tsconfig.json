@@ -22,7 +22,12 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["vitest/globals", "@testing-library/jest-dom", "node"]
   },
-  "include": ["src"],
-  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/test"],
+  "include": ["src", "server"],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/test",
+    "server/**/*.test.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -21,5 +21,21 @@
       "warn",
       { "allowConstantExport": true }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "server/**/*.{ts,tsx}",
+        "src/db/**/*.ts",
+        "src/services/drizzleProjectRepository.ts"
+      ],
+      "env": {
+        "node": true,
+        "browser": false
+      },
+      "rules": {
+        "react-refresh/only-export-components": "off"
+      }
+    }
+  ]
 }

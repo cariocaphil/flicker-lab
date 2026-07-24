@@ -10,8 +10,7 @@ import type { Sequence } from '../types';
  * - avoids join-heavy CRUD for a nested grid that is always loaded whole
  *
  * Browser localStorage (`flickerlab-project`) remains the automatic draft.
- * Nothing in the UI or store imports this module yet; API routes will use
- * the db client in a later commit.
+ * The React app must not import this schema; persistence goes through the HTTP API.
  */
 export const visualProjects = pgTable('visual_projects', {
   id: uuid('id').defaultRandom().primaryKey(),
